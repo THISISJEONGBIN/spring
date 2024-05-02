@@ -32,18 +32,6 @@ public class Control {
         return "index.html";
     }
 
-//    @PostMapping("/")
-//    public String index2() {
-////        List<DTO> li = map.Select_User();
-////        for (DTO dto : li) {
-////            if (dto.getId().equals(username) && dto.getPw().equals(password)) {
-////                mo.addAttribute("user", dto);
-////            }
-////        }
-//
-//        return "index.html";
-//    }
-
     @GetMapping("/admin")
     public String admin() {
 
@@ -75,6 +63,13 @@ public class Control {
     public String UserLogin2() {
 
         return "user/login.html";
+    }
+
+    @GetMapping("/board")
+    public String board() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+        return "board/board.html";
     }
 
     @PostMapping("/board")
@@ -115,6 +110,7 @@ public class Control {
 
         System.out.println(insert_title);
         System.out.println(insert_board);
+        map.insert_board(username, insert_title, insert_board);
 
         return "board/board_insert.html";
     }

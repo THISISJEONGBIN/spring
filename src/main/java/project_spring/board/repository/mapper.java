@@ -24,4 +24,7 @@ public interface mapper {
 
     @Insert("INSERT INTO board(user_id, board_title, board_content) VALUES (#{user_id}, #{board_title}, #{board_content})")
     public int insert_board(String user_id, String board_title, String board_content);
+
+    @Select("select * from board")
+    public List<DTO> select_board();
 }

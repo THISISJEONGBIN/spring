@@ -180,7 +180,7 @@
     </div>
 </nav>
 <br>
-<form action="/board/insert" method="post">
+<form action="/board" method="post">
     <main class="container">
         <div class="bg-body-tertiary p-5 rounded">
 
@@ -192,7 +192,7 @@
             <textarea name="insert_board" id="insert_board" cols="120" rows="10" placeholder="내용을 입력해주세요."></textarea>
             <!-- <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">야옹 &raquo;</a> -->
             <div class="text-end">
-                <input type="submit" class="btn btn-primary" value="안녕하세요">
+                <input type="submit" class="btn btn-primary" value="안녕하세요" onclick="button()">
             </div>
         </div>
         </div>
@@ -204,8 +204,7 @@
 <script>
     function button() {
         alert("게시물 업로드 성공");
-
-        document.forms[0].submit();
+        window.location.href="/board"
     }
 </script>
 </body>
