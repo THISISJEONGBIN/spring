@@ -29,7 +29,7 @@
             <input type="text" id="user_regident1" name="user_regident1" class="form-control" placeholder="앞자리 주민등록번호" required="">
         </p>
         <p>
-            <label for="user_regident2" class="sr-only">Password</label>
+            <label for="user_regident2" class="sr-only">user_regident2</label>
             <input type="password" id="user_regident2" name="user_regident2" class="form-control" placeholder="뒷자리 주민등록번호" required="">
         </p>
         <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="btn()">회원가입</button>
@@ -38,9 +38,18 @@
 </div>
 <div style="all: initial !important"></div>
 <script>
+    let user_id = document.getElementsByName("user_id");
+    let user_pw = document.getElementsByName("user_pw");
+    let user_name = document.getElementsByName("user_name");
+    let user_regi1 = document.getElementsByName("user_regident1");
+    let user_regi2 = document.getElementsByName("user_regident2");
     function btn() {
-        alert("회원가입 완료")
-        window.location.href = "http://localhost/userlogin"
+        if(user_id.value !== "" && user_pw.value !== "" && user_name.value !== "" && user_regi1.value !== "" && user_regi2.value !== "")
+        {
+            alert("회원가입 완료");
+            window.location.href = "http://localhost:8080/userlogin"
+        }
+
     }
 </script>
 </body>

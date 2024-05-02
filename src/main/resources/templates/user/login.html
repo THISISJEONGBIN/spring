@@ -21,7 +21,14 @@
             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
         </p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <a href="/singup">회원가입</a> <span> <a href="#">아이디 및 비밀번호 찾기</a> </span>
+        <a href="/singup">회원가입</a> <span> <a href="#" onclick="error()">아이디 및 비밀번호 찾기</a> </span>
     </form>
 </div>
-<div style="all: initial !important"></div></body></html>
+<div style="all: initial !important"></div>
+<script>
+    function error() {
+        alert("관리자에게 문의하세요.")
+    }
+</script>
+</body>
+</html>

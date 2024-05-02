@@ -1,5 +1,6 @@
 package project_spring.board.Security;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.filter.RequestContextFilter;
 import project_spring.board.DTO.DTO;
 import project_spring.board.DTO.DTObuilder;
 import project_spring.board.repository.mapper;
@@ -25,6 +27,9 @@ import java.util.List;
 public class SecurityConfig {
 @Autowired
 private mapper map;
+    @Autowired
+    private RequestContextFilter requestContextFilter;
+
     @Bean
     public SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth ->
@@ -33,7 +38,8 @@ private mapper map;
         );
 
         http.formLogin(login ->
-                login.loginPage("/userlogin").successForwardUrl("/").failureForwardUrl("/userlogin?error").permitAll());
+                login.loginPage("/userlogin").successForwardUrl("/board").failureForwardUrl("/userlogin?error").permitAll());
+
         http.csrf().disable();
         return http.build();
     }

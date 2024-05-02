@@ -18,4 +18,7 @@ public interface mapper {
 
     @Select("Select * from user_info where id = #{user_id} and pw = #{user_pw}")
     public List<DTO> login_user(String user_id, String user_pw);
+
+    @Insert("INSERT INTO board(user_id, board_title, board_content) VALUES (#{user_id}, #{board_title}, #{board_content})")
+    public int insert_board(String user_id, String board_title, String board_content);
 }
