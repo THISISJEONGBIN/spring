@@ -1,7 +1,7 @@
 package project_spring.board.DTO;
 
 public class DTObuilder {
-    private String id, pw, name, board_title,board_content;
+    private String id, pw, name;
     private int resident_1, resident_2;
 
     public DTObuilder id(String id) {
@@ -24,15 +24,7 @@ public class DTObuilder {
         this.resident_2 = resident_2;
         return this;
     }
-    public DTObuilder board_title(String board_title) {
-        this.board_title = board_title;
-        return this;
-    }
-    public DTObuilder board_content(String board_content) {
-        this.board_content = board_content;
-        return this;
-    }
     public DTO build() {
-        return new DTO(id, pw, name, resident_1, resident_2, board_title, board_content);
+        return new DTO(id, pw, name, resident_1, resident_2 );
     }
 }

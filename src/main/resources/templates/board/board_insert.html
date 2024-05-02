@@ -173,7 +173,7 @@
             </ul>
             <form class="d-flex" role="search">
                 <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                <span th:text = "${user.getId}"> </span>
+                <span th:text = "${username}"> </span>
                 <a href="/logout"><button class="btn btn-outline-success">logout</button></a>
             </form>
         </div>
@@ -183,6 +183,7 @@
 <form action="/board/insert" method="post">
     <main class="container">
         <div class="bg-body-tertiary p-5 rounded">
+
             <h1>제목</h1>
             <textarea name="insert_title" id="insert_title" cols="120" rows="3" placeholder="제목을 입력해주세요."></textarea>
             <br>
@@ -202,6 +203,8 @@
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function button() {
+        alert("게시물 업로드 성공");
+
         document.forms[0].submit();
     }
 </script>
