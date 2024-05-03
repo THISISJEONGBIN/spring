@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project_spring.board.DTO.DTO;
 import project_spring.board.DTO.DTObuilder;
+import project_spring.board.DTO.board;
 import project_spring.board.repository.mapper;
 
 import java.net.Authenticator;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -29,7 +31,7 @@ public class Control {
     @GetMapping("/")
     public String index() {
 
-        return "index.html";
+        return "redirect:/userlogin";
     }
 
     @GetMapping("/admin")
@@ -66,9 +68,13 @@ public class Control {
     }
 
     @GetMapping("/board")
-    public String board() {
+    public String board(Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String)authentication.getName();
+        System.out.println(username + "안녕");
+        mo.addAttribute("username", username);
+
+
         return "board/board.html";
     }
 
@@ -83,7 +89,7 @@ public class Control {
                 Cookie coo = new Cookie("username", String.valueOf(dto.getId()));
 //                coo.setMaxAge(-1);
                 coo.setPath("/");
-                System.out.println( dto.getId() + "로그인 성공");
+                System.out.println("야생의 " +dto.getId() + "이 나타났다 !");
                 res.addCookie(coo);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", dto);
@@ -114,9 +120,39 @@ public class Control {
 
         return "board/board_insert.html";
     }
-    @GetMapping("/board/select")
-    public String select() {
+
+
+
+    @PostMapping("/board/select")
+    public String Post_select( @RequestParam String insert_title, @RequestParam String insert_board,Model mo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+        map.insert_board(username, insert_title, insert_board);
+
+        List<board> li = map.select_board();
+        mo.addAttribute("board", li);
 
         return "board/board_select.html";
+    }
+
+    @GetMapping("/board/select")
+    public String Get_select( Model mo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+        List<board> li = map.select_board();
+        mo.addAttribute("board", li);
+
+        return "board/board_select.html";
+    }
+
+    @GetMapping("/board/delete")
+    public String delete() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+        map.delete_board(username);
+
+        return "board/board_delete.html";
     }
 }

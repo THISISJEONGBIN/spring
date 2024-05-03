@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.filter.RequestContextFilter;
 import project_spring.board.DTO.DTO;
@@ -40,6 +41,10 @@ private mapper map;
         http.addFilterBefore(requestContextFilter, UsernamePasswordAuthenticationFilter.class);
         http.formLogin(login ->
                 login.loginPage("/userlogin").successForwardUrl("/board").failureForwardUrl("/userlogin?error").permitAll());
+
+        http.logout(logout ->
+                logout.logoutUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll().logoutSuccessUrl("/userlogin").invalidateHttpSession(true)
+                );
 
         http.csrf().disable();
         return http.build();

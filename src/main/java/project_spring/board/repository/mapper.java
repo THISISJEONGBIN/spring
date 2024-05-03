@@ -1,9 +1,11 @@
 package project_spring.board.repository;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import project_spring.board.DTO.DTO;
+import project_spring.board.DTO.board;
 
 import java.util.List;
 
@@ -26,5 +28,11 @@ public interface mapper {
     public int insert_board(String user_id, String board_title, String board_content);
 
     @Select("select * from board")
-    public List<DTO> select_board();
+    public List<board> select_board();
+
+    @Delete("DELETE from board where user_id = #{user_id}")
+    public int delete_board(String user_id);
+
+    @Insert("INSERT INTO comment (board_id, user_id, comment_content) VALUES (#{board_no}, #{user_id}, #{comment_content})")
+    public int insert_comment(String user_id, String board_no, String comment_content);
 }

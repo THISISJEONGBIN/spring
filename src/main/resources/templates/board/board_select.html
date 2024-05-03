@@ -162,7 +162,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/board">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
@@ -181,36 +181,16 @@
     </div>
 </nav>
 <br>
-<main class="container">
-    <div class="bg-body-tertiary p-5 rounded">
-        <h1>환영하빈다</h1>
-        <p class="lead">꽁꽁얼어붙은한강위로고양이가걸어다닙니다</p>
-        <a class="btn btn-lg btn-primary" href="/board/insert" role="button">야옹 &raquo;</a>
+<main class="container" th:each="board : ${board}">
+    <br>
+    <div  class="bg-body-tertiary p-5 rounded">
+        <h1 th:text="${board.board_title}"></h1>
+        <p class="lead" th:text="${board.board_content}"></p>
+        <p th:text="'글 쓴 사람 아이디: ' + ${board.user_id} + ', 작성된 시간: ' + ${board.created_at}">글 쓴 사람 아이디와 작성된 시간이 들어가요</p>
+        <button type="button" class="btn btn-danger" ><a href="board/delete"> Delete </a></button>
+        <button type="button" class="btn btn-warning">Update</button>
     </div>
-</main>
-<br>
-<main class="container">
-    <div class="bg-body-tertiary p-5 rounded">
-        <h1> 제목이 나옵니다 </h1>
-        <p class="lead"> 내용이 나옵니다 </p>
-        <p>글 쓴 사람 아이디와 작성 된 시간이 들어가요 </p>
-    </div>
-</main>
-<br>
-<main class="container">
-    <div class="bg-body-tertiary p-5 rounded">
-        <h1> 제목이 나옵니다 </h1>
-        <p class="lead"> 내용이 나옵니다 </p>
-        <p>글 쓴 사람 아이디와 작성 된 시간이 들어가요 </p>
-    </div>
-</main>
-<br>
-<main class="container">
-    <div class="bg-body-tertiary p-5 rounded">
-        <h1> 제목이 나옵니다 </h1>
-        <p class="lead"> 내용이 나옵니다 </p>
-        <p>글 쓴 사람 아이디와 작성 된 시간이 들어가요 </p>
-    </div>
+    <br>
 </main>
 
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>

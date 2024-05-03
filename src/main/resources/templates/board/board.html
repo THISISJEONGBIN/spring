@@ -173,45 +173,41 @@
             </ul>
             <form class="d-flex" role="search">
                 <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                <span th:text = "${user.getId}"> </span>
-                <button class="btn btn-outline-success"><a href="/logout">logout</a></button>
+                <button class="btn btn-outline-success"><a href="/logout" style="text-decoration: none">logout</a></button>
 
             </form>
         </div>
     </div>
 </nav>
+<br> <br> <br>
+<main class="container">
+    <div class="bg-body-tertiary p-5 rounded">
+        <h1>[[${user.getId}]]님 안녕하세요!</h1>
+        <p class="lead">오늘도 멋진 코드를 작성해주세요!</p>
+
+    </div>
+</main>
+
 <br>
 <main class="container">
     <div class="bg-body-tertiary p-5 rounded">
-        <h1>환영하빈다</h1>
-        <p class="lead">꽁꽁얼어붙은한강위로고양이가걸어다닙니다</p>
-        <a class="btn btn-lg btn-primary" href="/board/insert" role="button">야옹 &raquo;</a>
+        <h1>[[${user.getId}]]님 도움이 필요한 사람이 있어요!</h1>
+        <p class="lead">도움을 주러 가볼까요? </p>
+        <p class="lead">사람들을 모아서 코딩 모임을 만드셔도 돼요! </p>
+        <a class="btn btn-lg btn-primary" href="/board/select" role="button">도움 주러가기 &raquo;</a>
     </div>
 </main>
+
 <br>
 <main class="container">
     <div class="bg-body-tertiary p-5 rounded">
-        <h1> 제목이 나옵니다 </h1>
-        <p class="lead"> 내용이 나옵니다 </p>
-        <p>글 쓴 사람 아이디와 작성 된 시간이 들어가요 </p>
+        <h1>[[${user.getId}]]님 도움이 필요한가요?</h1>
+        <p class="lead">도움을 주러 가볼까요?</p>
+        <a class="btn btn-lg btn-primary" href="/board/insert" role="button">도움 받으러 가기 &raquo;</a>
     </div>
 </main>
-<br>
-<main class="container">
-    <div class="bg-body-tertiary p-5 rounded">
-        <h1> 제목이 나옵니다 </h1>
-        <p class="lead"> 내용이 나옵니다 </p>
-        <p>글 쓴 사람 아이디와 작성 된 시간이 들어가요 </p>
-    </div>
-</main>
-<br>
-<main class="container">
-    <div class="bg-body-tertiary p-5 rounded">
-        <h1> 제목이 나옵니다 </h1>
-        <p class="lead"> 내용이 나옵니다 </p>
-        <p>글 쓴 사람 아이디와 작성 된 시간이 들어가요 </p>
-    </div>
-</main>
+
+
 
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
