@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter @Getter
 public class board {
-    int board_no;
+    int board_id;
     String user_id;
     String board_title;
     String board_content;

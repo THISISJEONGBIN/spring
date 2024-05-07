@@ -155,7 +155,7 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Top navbar</a>
+        <a class="navbar-brand" href="/board">Hello, World</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -165,30 +165,23 @@
                     <a class="nav-link active" aria-current="page" href="/board">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="/mypage">My Page</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                <span> </span>
-                <button class="btn btn-outline-success"><a href="/login">login</a></button>
-
-            </form>
+            <button class="btn btn-outline-success"><a href="/logout" style="text-decoration: none">logout</a></button>
         </div>
     </div>
 </nav>
 <br>
 <main class="container" th:each="board : ${board}">
-    <br>
     <div  class="bg-body-tertiary p-5 rounded">
+        <p th:text="${board.board_id} + '번째 게시물'"></p>
         <h1 th:text="${board.board_title}"></h1>
-        <p class="lead" th:text="${board.board_content}"></p>
-        <p th:text="'글 쓴 사람 아이디: ' + ${board.user_id} + ', 작성된 시간: ' + ${board.created_at}">글 쓴 사람 아이디와 작성된 시간이 들어가요</p>
-        <button type="button" class="btn btn-danger" ><a href="board/delete"> Delete </a></button>
-        <button type="button" class="btn btn-warning">Update</button>
+        <h2 class="lead" th:text="${board.board_content}"></h2>
+        <p th:text="'- 아이디: ' + ${board.user_id}">글 쓴 사람 아이디와 작성된 시간이 들어가요</p>
+        <p th:text="'- 작성 시간: ' + ${board.created_at}"></p>
+<!--        <button type="button" class="btn btn-danger" ><a href="board/delete"> Delete </a></button>-->
+<!--        <button type="button" class="btn btn-warning">Update</button>-->
     </div>
     <br>
 </main>

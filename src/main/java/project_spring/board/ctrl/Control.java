@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +17,6 @@ import project_spring.board.DTO.DTObuilder;
 import project_spring.board.DTO.board;
 import project_spring.board.repository.mapper;
 
-import java.net.Authenticator;
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -71,7 +68,7 @@ public class Control {
     public String board(Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String)authentication.getName();
-        System.out.println(username + "안녕");
+        System.out.println("야생의 " + username + "이 나타났다!");
         mo.addAttribute("username", username);
 
 
@@ -79,12 +76,16 @@ public class Control {
     }
 
     @PostMapping("/board")
-    public String board(@RequestParam String username, @RequestParam String password,
+    public String board(@RequestParam(name = "username") String id, @RequestParam(name = "password") String pw,
                         Model mo, HttpServletRequest req, HttpServletResponse res) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+        mo.addAttribute("username", username);
 
         List<DTO> li = map.Select_User();
         for (DTO dto : li) {
-            if (dto.getId().equals(username) && dto.getPw().equals(password)) {
+            if (dto.getId().equals(id) && dto.getPw().equals(pw)) {
                 mo.addAttribute("user", dto);
                 Cookie coo = new Cookie("username", String.valueOf(dto.getId()));
 //                coo.setMaxAge(-1);
@@ -102,7 +103,7 @@ public class Control {
     public String insert(Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String)authentication.getName();
-        System.out.println(username + "안녕");
+        System.out.println("야생의 " + username + "이 나타났다!");
         mo.addAttribute("username", username);
 
         return "board/board_insert.html";
@@ -112,6 +113,7 @@ public class Control {
     public String insert(@RequestParam String insert_title, @RequestParam String insert_board, Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String)authentication.getName();
+
         System.out.println(username + "님이 게시물 작성");
 
         System.out.println(insert_title);
@@ -155,4 +157,35 @@ public class Control {
 
         return "board/board_delete.html";
     }
+
+    @GetMapping("/mypage")
+    public String mypage(Model mo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+        List<DTO> li = map.Select_User();
+        for (DTO dto : li) {
+            if (dto.getId().equals(username)) {
+                mo.addAttribute("user", dto);
+                return "board/mypage.html";
+            }
+        }
+     return "board/mypage.html";
+    }
+
+        @GetMapping("/mypage/changepassword")
+    public String changepassword(Model mo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+        mo.addAttribute("username", username);
+
+        return "board/chpassword.html";
+    }
+
+    @GetMapping("/board/comment")
+    public String comment() {
+
+        return "board/board_comment.html";
+        }
 }
+

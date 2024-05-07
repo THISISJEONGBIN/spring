@@ -155,34 +155,27 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Top navbar</a>
+        <a class="navbar-brand" href="/board">Hello, World</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/board">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="/mypage">My Page</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
                 <button class="btn btn-outline-success"><a href="/logout" style="text-decoration: none">logout</a></button>
-
-            </form>
         </div>
     </div>
 </nav>
 <br> <br> <br>
 <main class="container">
     <div class="bg-body-tertiary p-5 rounded">
-        <h1>[[${user.getId}]]님 안녕하세요!</h1>
+        <h1>[[${username}]]님 안녕하세요!</h1>
         <p class="lead">오늘도 멋진 코드를 작성해주세요!</p>
 
     </div>
@@ -191,7 +184,7 @@
 <br>
 <main class="container">
     <div class="bg-body-tertiary p-5 rounded">
-        <h1>[[${user.getId}]]님 도움이 필요한 사람이 있어요!</h1>
+        <h1>[[${username}]]님 도움이 필요한 사람이 있어요!</h1>
         <p class="lead">도움을 주러 가볼까요? </p>
         <p class="lead">사람들을 모아서 코딩 모임을 만드셔도 돼요! </p>
         <a class="btn btn-lg btn-primary" href="/board/select" role="button">도움 주러가기 &raquo;</a>
@@ -201,7 +194,7 @@
 <br>
 <main class="container">
     <div class="bg-body-tertiary p-5 rounded">
-        <h1>[[${user.getId}]]님 도움이 필요한가요?</h1>
+        <h1>[[${username}]]님 도움이 필요한가요?</h1>
         <p class="lead">도움을 주러 가볼까요?</p>
         <a class="btn btn-lg btn-primary" href="/board/insert" role="button">도움 받으러 가기 &raquo;</a>
     </div>

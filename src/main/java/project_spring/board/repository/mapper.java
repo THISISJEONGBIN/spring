@@ -1,9 +1,6 @@
 package project_spring.board.repository;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import project_spring.board.DTO.DTO;
 import project_spring.board.DTO.board;
 
@@ -35,4 +32,8 @@ public interface mapper {
 
     @Insert("INSERT INTO comment (board_id, user_id, comment_content) VALUES (#{board_no}, #{user_id}, #{comment_content})")
     public int insert_comment(String user_id, String board_no, String comment_content);
+
+    @Update("update User_Info set user_pw = #{user_pw} where user_id = #{user_id}")
+    public int update_user_pw(String user_id, String user_pw);
+
 }

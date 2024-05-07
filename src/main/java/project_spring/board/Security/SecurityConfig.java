@@ -35,7 +35,7 @@ private mapper map;
     @Bean
     public SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth ->
-                auth.requestMatchers("/singup").permitAll().requestMatchers("/").hasAnyRole("ADMIN","USER").requestMatchers("/admin").hasRole("ADMIN").anyRequest().authenticated()
+                auth.requestMatchers("/singup","/").permitAll().requestMatchers("/admin").hasRole("ADMIN").anyRequest().authenticated()
 
         );
         http.addFilterBefore(requestContextFilter, UsernamePasswordAuthenticationFilter.class);

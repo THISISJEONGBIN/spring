@@ -155,7 +155,7 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Top navbar</a>
+        <a class="navbar-brand" href="/board">Hello, World</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -165,17 +165,10 @@
                     <a class="nav-link active" aria-current="page" href="/board">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="/mypage">My Page</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                <span th:text = "${username}"> </span>
-                <a href="/logout"><button class="btn btn-outline-success">logout</button></a>
-            </form>
+            <button class="btn btn-outline-success"><a href="/logout" style="text-decoration: none">logout</a></button>
         </div>
     </div>
 </nav>
