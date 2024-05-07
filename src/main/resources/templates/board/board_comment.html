@@ -155,46 +155,37 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">로고가 들어가요</a>
+    <a class="navbar-brand" href="/board">Hello, World</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="/board">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="/mypage">My Page</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-        <span> </span>
-        <a href="/logout"><button class="btn btn-outline-success">logout</button></a>
-      </form>
+      <button class="btn btn-light" onclick="location.href='/logout'">logout</button>
     </div>
   </div>
 </nav>
 <br>
-<main class="container">
-  <div class="bg-body-tertiary p-5 rounded">
-    <h1>제목</h1>
-    <h3>제목에 해당하는 데이터가 들어갑니다</h3>
-    <br>
-    <br>
-    <h1>내용</h1>
-    <h3>내용에 해당하는 데이터가 들어갑니다</h3>
-    <!-- <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">야옹 &raquo;</a> -->
-  </div>
-  </div>
-</main>
-<br>
 
-<form>
+<main class="container" th:each="board : ${board}">
+  <div  class="bg-body-tertiary p-5 rounded">
+    <h1 th:text="'제목 : ' + ${board.board_title}"></h1>
+    <br>
+    <h3 th:text="${board.board_content}"></h3>
+    <br>
+    <p th:text="'- 아이디 : ' + ${board.user_id} + ' - 작성 시간 : ' + ${board.created_at}"></p>
+  </div>
+  <br>
+</main>
+
+<form method="post">
 <main class="container">
   <div class="bg-body-tertiary p-5 rounded">
     <h1>댓글</h1>
@@ -205,6 +196,19 @@
   </div>
 </main>
 </form>
+
+
+<main class="container" th:each="comment : ${comment}">
+  <div  class="bg-body-tertiary p-5 rounded" th:each="board : ${board}">
+    <h1 th:text="'제목 : ' + ${comment.user_id}"></h1>
+    <br>
+    <h3 th:text="${comment.comment_content}"></h3>
+    <br>
+    <p th:text="' - 작성 시간 : ' + ${comment.created_at}"></p>
+    <button type="button" class="btn btn-danger" th:onclick="|location.href='@{/board/}' + '${board.board_id}' + '/'+ '${comment.comment_id}'|">삭제하기</button>
+  </div>
+  <br>
+</main>
 
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>

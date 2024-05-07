@@ -202,7 +202,7 @@
     <h2 class="lead" th:text="${board.board_content}"> 내용이 들어감</h2>
     <p th:text="'- 작성 시간: ' + ${board.created_at}"></p>
     <button type="button" class="btn btn-danger" th:onclick="|location.href='@{/mypage/}' + '${board.board_id}'|">삭제하기</button>
-    <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/mypage/update/}' + '${board.board_id}'|">수정하기</button>
+    <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/update/}' + '${board.board_id}'|">수정하기</button>
   </div>
   <br>
 </main>

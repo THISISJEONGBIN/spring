@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import project_spring.board.DTO.DTO;
 import project_spring.board.DTO.DTObuilder;
 import project_spring.board.DTO.board;
+import project_spring.board.DTO.comment;
 import project_spring.board.repository.mapper;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -192,19 +194,54 @@ public class Control {
         return "redirect:/mypage";
     }
 
-    @GetMapping("/mypage/update/{board_id}")
+    @GetMapping("/update/{board_id}")
     public String update_board(@PathVariable String board_id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = (String)authentication.getName();
-
 
         return "board/board_update.html";
     }
 
-    @GetMapping("/board/comment")
-    public String comment() {
+    @PostMapping("/update/{board_id}")
+    public String update_board2(@PathVariable String board_id, @RequestParam String update_title, @RequestParam String update_board) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+        map.update_board(board_id,username,update_title,update_board);
+
+        return "redirect:/mypage";
+    }
+
+
+    @GetMapping("/board/{board_id}")
+    public String comment(@PathVariable String board_id, Model mo) {
+        List<board> li = map.select_board_by_id(board_id);
+        mo.addAttribute("board", li);
+
+        List<comment> comment_li = map.select_comment(board_id);
+        mo.addAttribute("comment", comment_li);
 
         return "board/board_comment.html";
         }
+
+    @PostMapping("/board/{board_id}")
+    public String post_comment(@PathVariable String board_id, @RequestParam String comment_content, Model mo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+        map.insert_comment(username,board_id,comment_content);
+
+        List<comment> li = map.select_comment(board_id);
+        mo.addAttribute("comment", li);
+        return "redirect:/board/{board_id}";
+    }
+
+    @GetMapping("/board/{board_id}/{comment_id}")
+    public String delete_comment(@PathVariable String board_id,@PathVariable String comment_id, Model mo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+        System.out.println("삭제");
+        map.delete_comment(comment_id,username,board_id);
+        return "redirect:/board/{board_id}";
+    }
 }
 

@@ -172,49 +172,32 @@
     </div>
   </div>
 </nav>
-
-<br> <br> <br> <br> <br> <br> <br>
-<main class="container">
-  <h1>[[${username}]]</h1>
-  <form action="/mypage" method="post">
+<br>
+<form action="" method="post">
+  <main class="container">
     <div class="bg-body-tertiary p-5 rounded">
-      <h1>현재 비밀번호</h1>
-      <input type="password" class="form-control" name="oldpassword" id="oldpassword" required>
+
+      <h1>제목</h1>
+      <textarea name="update_title" id="update_title" cols="120" rows="3" placeholder="제목을 입력해주세요."></textarea>
       <br>
-      <h1>새로운 비밀번호</h1>
-      <input type="password" class="form-control" name="newpassword1" id="newpassword1" required>
       <br>
-      <h1>새로운 비밀번호 확인</h1>
-      <input type="password" class="form-control" name="newpassword2" id="newpassword2" required />
-      <br> <br>
-      <button type="button" class="btn btn-success" onclick="checkPassword()">변경하기</button>
+      <h2>내용</h2>
+      <textarea name="update_board" id="update_board" cols="120" rows="10" placeholder="내용을 입력해주세요."></textarea>
+      <!-- <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">야옹 &raquo;</a> -->
+      <div class="text-end">
+        <input type="submit" class="btn btn-primary" value="안녕하세요" onclick="button()">
+      </div>
     </div>
-  </form>
-</main>
+    </div>
+  </main>
+</form>
 <br>
 
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  function checkPassword() {
-    var oldpassword = document.getElementById('oldpassword').value;
-    var newpassword1 = document.getElementById('newpassword1').value;
-    var newpassword2 = document.getElementById('newpassword2').value;
+  function button() {
+    alert("게시물 수정 성공");
 
-    if (oldpassword == "") {
-      alert("현재 비밀번호를 입력해주세요.");
-    } else if (newpassword1 == "") {
-      alert("새로운 비밀번호를 입력해주세요.");
-    } else if (newpassword2 == "") {
-      alert("새로운 비밀번호 확인을 입력해주세요.");
-    } else
-
-    if (newpassword1 != newpassword2) {
-      alert("새로운 비밀번호가 일치하지 않습니다.");
-    } else {
-      alert("비밀번호 변경 완료");
-      alert("보안을 위해 다시 로그인 해주세요")
-      document.forms[0].submit();
-    }
   }
 </script>
 </body>

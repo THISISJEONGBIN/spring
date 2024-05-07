@@ -174,7 +174,7 @@
 </nav>
 <br>
 <main class="container" th:each="board : ${board}">
-    <div  class="bg-body-tertiary p-5 rounded">
+    <div  class="bg-body-tertiary p-5 rounded" th:onclick="|location.href='@{/board/}' + '${board.board_id}'|">
         <p th:text="${board.board_id} + '번째 게시물'"></p>
         <h1 th:text="${board.board_title}"></h1>
         <h2 class="lead" th:text="${board.board_content}"></h2>
