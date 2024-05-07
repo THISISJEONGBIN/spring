@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -38,6 +40,7 @@ private mapper map;
                 auth.requestMatchers("/singup","/").permitAll().requestMatchers("/admin").hasRole("ADMIN").anyRequest().authenticated()
 
         );
+
         http.addFilterBefore(requestContextFilter, UsernamePasswordAuthenticationFilter.class);
         http.formLogin(login ->
                 login.loginPage("/userlogin").successForwardUrl("/board").failureForwardUrl("/userlogin?error").permitAll());
@@ -52,8 +55,10 @@ private mapper map;
 
     @Bean
     public InMemoryUserDetailsManager adminUserDetailsManager() {
+
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         Iterator<DTO> it = map.Select_User().iterator();
+        SecurityContextHolder.clearContext();
 
         while(it.hasNext()) {
             DTO user = it.next();
@@ -62,6 +67,7 @@ private mapper map;
                             .password(passwordEncoder().encode(user.getPw()))
                             .roles("USER").build()
             );
+
         }
         // 관리자 계정 추가
         manager.createUser(
@@ -70,6 +76,7 @@ private mapper map;
                         .roles("ADMIN")
                         .build()
         );
+        SecurityContextHolder.clearContext();
 
         return manager;
     }

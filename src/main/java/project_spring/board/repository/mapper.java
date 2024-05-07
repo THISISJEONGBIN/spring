@@ -27,13 +27,18 @@ public interface mapper {
     @Select("select * from board")
     public List<board> select_board();
 
-    @Delete("DELETE from board where user_id = #{user_id}")
-    public int delete_board(String user_id);
+    @Delete("delete from board where board_id = #{board_id} and user_id = #{user_id}")
+    public int delete_board(String board_id, String user_id);
 
     @Insert("INSERT INTO comment (board_id, user_id, comment_content) VALUES (#{board_no}, #{user_id}, #{comment_content})")
     public int insert_comment(String user_id, String board_no, String comment_content);
 
-    @Update("update User_Info set user_pw = #{user_pw} where user_id = #{user_id}")
-    public int update_user_pw(String user_id, String user_pw);
+    @Update("update User_Info set user_pw = #{new_user_pw} where user_id = #{user_id} and user_pw = #{old_user_pw};")
+    public int update_user_pw(String user_id, String new_user_pw, String old_user_pw);
 
+    @Update("update board set board_title = #{board_title}, board_content = #{board_content} where board_id = #{board_id} and user_id = #{user_id}")
+    public int update_board_title(String board_id,String user_id, String board_title, String board_content);
+
+    @Select("SELECT * from board where user_id = #{user_id}")
+    public List<board> mypage_board(String user_id);
 }

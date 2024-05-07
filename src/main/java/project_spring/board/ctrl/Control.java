@@ -4,14 +4,13 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import project_spring.board.DTO.DTO;
 import project_spring.board.DTO.DTObuilder;
 import project_spring.board.DTO.board;
@@ -148,31 +147,23 @@ public class Control {
         return "board/board_select.html";
     }
 
-    @GetMapping("/board/delete")
-    public String delete() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = (String)authentication.getName();
-
-        map.delete_board(username);
-
-        return "board/board_delete.html";
-    }
-
     @GetMapping("/mypage")
     public String mypage(Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String)authentication.getName();
-        List<DTO> li = map.Select_User();
-        for (DTO dto : li) {
+        List<DTO> user_li = map.Select_User();
+        List<board> board_li = map.mypage_board(username);
+        for (DTO dto : user_li) {
             if (dto.getId().equals(username)) {
                 mo.addAttribute("user", dto);
+                mo.addAttribute("board", board_li);
                 return "board/mypage.html";
             }
         }
      return "board/mypage.html";
     }
 
-        @GetMapping("/mypage/changepassword")
+    @GetMapping("/mypage/changepassword")
     public String changepassword(Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String)authentication.getName();
@@ -180,6 +171,34 @@ public class Control {
         mo.addAttribute("username", username);
 
         return "board/chpassword.html";
+    }
+    @PostMapping("/mypage")
+    public String changepassword(@RequestParam String oldpassword, @RequestParam String newpassword1, Model mo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+        map.update_user_pw(username, newpassword1, oldpassword);
+
+        return "redirect:/userlogin";
+    }
+
+    @GetMapping("/mypage/{board_id}")
+    public String delete_board(@PathVariable String board_id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+        map.delete_board(board_id, username);
+
+        return "redirect:/mypage";
+    }
+
+    @GetMapping("/mypage/update/{board_id}")
+    public String update_board(@PathVariable String board_id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+
+        return "board/board_update.html";
     }
 
     @GetMapping("/board/comment")

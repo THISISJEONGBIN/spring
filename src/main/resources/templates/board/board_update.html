@@ -15,7 +15,7 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-  <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .bd-placeholder-img {
@@ -173,40 +173,49 @@
   </div>
 </nav>
 
-<br> <br> <br>
+<br> <br> <br> <br> <br> <br> <br>
 <main class="container">
-  <h1>[[${user.getId}]]님의 정보</h1>
-  <div class="bg-body-tertiary p-5 rounded">
-    <h1>아이디</h1>
-    <h3>[[${user.getId}]]</h3>
-    <br>
-    <h1>이름</h1>
-    <h3>[[${user.getName}]]</h3>
-    <br>
-    <h1>생일</h1>
-    <h3>[[${user.getResident_1}]]</h3>
-    <h6> 가입 시 기재했던 앞자리 주민등록번호 기준입니다!</h6>
-    <br> <br>
-    <button type="button" class="btn btn-primary" onclick="location.href = '/mypage/changepassword'">비밀번호 변경</button>
-  </div>
+  <h1>[[${username}]]</h1>
+  <form action="/mypage" method="post">
+    <div class="bg-body-tertiary p-5 rounded">
+      <h1>현재 비밀번호</h1>
+      <input type="password" class="form-control" name="oldpassword" id="oldpassword" required>
+      <br>
+      <h1>새로운 비밀번호</h1>
+      <input type="password" class="form-control" name="newpassword1" id="newpassword1" required>
+      <br>
+      <h1>새로운 비밀번호 확인</h1>
+      <input type="password" class="form-control" name="newpassword2" id="newpassword2" required />
+      <br> <br>
+      <button type="button" class="btn btn-success" onclick="checkPassword()">변경하기</button>
+    </div>
+  </form>
 </main>
 <br>
 
-<main class="container">
-  <h1>[[${user.getId}]]님이 작성한 게시글</h1>
-</main>
-<main class="container" th:each="board : ${board}">
-  <div  class="bg-body-tertiary p-5 rounded">
-    <p th:text="${board.board_id} + '번째 게시물'"></p>
-    <h1 th:text="${board.board_title}">제목이 들어감</h1>
-    <h2 class="lead" th:text="${board.board_content}"> 내용이 들어감</h2>
-    <p th:text="'- 작성 시간: ' + ${board.created_at}"></p>
-    <button type="button" class="btn btn-danger" th:onclick="|location.href='@{/mypage/}' + '${board.board_id}'|">삭제하기</button>
-    <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/mypage/update/}' + '${board.board_id}'|">수정하기</button>
-  </div>
-  <br>
-</main>
-
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function checkPassword() {
+    var oldpassword = document.getElementById('oldpassword').value;
+    var newpassword1 = document.getElementById('newpassword1').value;
+    var newpassword2 = document.getElementById('newpassword2').value;
+
+    if (oldpassword == "") {
+      alert("현재 비밀번호를 입력해주세요.");
+    } else if (newpassword1 == "") {
+      alert("새로운 비밀번호를 입력해주세요.");
+    } else if (newpassword2 == "") {
+      alert("새로운 비밀번호 확인을 입력해주세요.");
+    } else
+
+    if (newpassword1 != newpassword2) {
+      alert("새로운 비밀번호가 일치하지 않습니다.");
+    } else {
+      alert("비밀번호 변경 완료");
+      alert("보안을 위해 다시 로그인 해주세요")
+      document.forms[0].submit();
+    }
+  }
+</script>
 </body>
 </html>
