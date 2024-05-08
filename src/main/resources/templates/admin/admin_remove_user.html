@@ -172,49 +172,36 @@
     </div>
   </div>
 </nav>
-<br>
-
-<main class="container" th:each="board : ${board}">
-  <div  class="bg-body-tertiary p-5 rounded">
-    <h1 th:text="'제목 : ' + ${board.board_title}"></h1>
-    <br>
-    <h3 th:text="${board.board_content}"></h3>
-    <br>
-    <p th:text="'- 아이디 : ' + ${board.user_id} + ' - 작성 시간 : ' + ${board.created_at}"></p>
-  </div>
-  <br>
-</main>
-
-<form method="post">
-<main class="container">
-  <div class="bg-body-tertiary p-5 rounded">
-    <h1>댓글</h1>
-    <textarea name="comment_content" id="comment_content" cols="120" rows="3" placeholder="댓글을 입력해주세요."></textarea>
-    <span> <input type="submit" class="btn btn-primary" value="댓글 입력" onclick="button()"> </span>
-    <br>
-  </div>
-  </div>
-</main>
+<br> <br> <br>
+<form method="post" action="">
+  <main class="container">
+    <div class="bg-body-tertiary p-5 rounded">
+      <p class="lead">누구를 내쫒을건가요</p>
+      <input type="text" name="user_id">
+      <input type="button" value="내쫒아버리기" onclick="deluser()">
+    </div>
+  </main>
 </form>
 
 <br>
 
-<main class="container" th:each="comment : ${comment}">
-  <div  class="bg-body-tertiary p-5 rounded" th:each="board : ${board}">
-    <br>
-    <h2 th:text="${comment.comment_content}"></h2>
-    <br>
-    <p th:text="' - ' + ${comment.user_id} + ' - 작성 시간 : ' + ${comment.created_at}"></p>
-    <button type="button" class="btn btn-danger" th:onclick="|location.href='@{/board/}' + '${board.board_id}' + '/'+ '${comment.comment_id}'|">삭제하기</button>
-  </div>
-  <br>
+<main class="container" th:each="user : ${user}">
+    <h2 th:text="${user.getId}"></h2>
 </main>
 
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  function button() {
-    document.forms[0].submit();
+  function deluser(){
+    var user_id = document.getElementsByName("user_id")[0].value;
+    if(user_id == ""){
+      alert("아이디를 입력해주세요");
+      return;
+    }
+    if(confirm("정말로 삭제하시겠습니까?")){
+      document.forms[0].submit();
+    }
   }
 </script>
+
 </body>
 </html>

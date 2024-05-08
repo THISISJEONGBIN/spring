@@ -20,7 +20,7 @@ public interface mapper {
     public List<DTO> login_user(String user_id, String user_pw);
 
     @Select("SELECT * FROM USER_INFO where #{user_id}")
-    public List<DTO> login_user2(String user_id);
+    public List<DTO> Select_user_id(String user_id);
 
     @Insert("INSERT INTO board(user_id, board_title, board_content) VALUES (#{user_id}, #{board_title}, #{board_content})")
     public int insert_board(String user_id, String board_title, String board_content);
@@ -51,4 +51,7 @@ public interface mapper {
 
     @Delete("delete from comment where comment_id = #{comment_id} and user_id = #{user_id} ")
     public int delete_comment(String comment_id, String user_id, String board_id);
+
+    @Delete("delete from user_info where user_id = #{user_id}")
+    public int admin_delete_user(String user_id);
 }
