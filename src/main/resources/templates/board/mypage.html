@@ -168,7 +168,7 @@
           <a class="nav-link" href="/mypage">My Page</a>
         </li>
       </ul>
-      <button class="btn btn-light" onclick="location.href='/logout'">logout</button>
+      <button class="btn btn-light" onclick="location.href='/'">logout</button>
     </div>
   </div>
 </nav>
@@ -186,6 +186,8 @@
     <h1>생일</h1>
     <h3>[[${user.getResident_1}]]</h3>
     <h6> 가입 시 기재했던 앞자리 주민등록번호 기준입니다!</h6>
+    <h1>선호하는 프로그래밍 언어</h1>
+    <h3>[[${user.getCode}]]</h3>
     <br> <br>
     <button type="button" class="btn btn-primary" onclick="location.href = '/mypage/changepassword'">비밀번호 변경</button>
   </div>

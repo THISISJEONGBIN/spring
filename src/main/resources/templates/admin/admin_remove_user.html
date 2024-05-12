@@ -172,36 +172,18 @@
     </div>
   </div>
 </nav>
-<br> <br> <br>
-<form method="post" action="">
-  <main class="container">
-    <div class="bg-body-tertiary p-5 rounded">
-      <p class="lead">누구를 내쫒을건가요</p>
-      <input type="text" name="user_id">
-      <input type="button" value="내쫒아버리기" onclick="deluser()">
-    </div>
-  </main>
-</form>
+<br>
 
 <br>
 
 <main class="container" th:each="user : ${user}">
-    <h2 th:text="${user.getId}"></h2>
+  <div class="bg-body-tertiary p-5 rounded">
+    <h2 th:text="'아이디 : ' + ${user.getId}"></h2>
+    <h2 th:text="'비밀번호 : ' + ${user.getPw}"></h2>
+    <h2 th:text="'이름 : ' + ${user.getName}"></h2>
+  </div>
 </main>
 
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  function deluser(){
-    var user_id = document.getElementsByName("user_id")[0].value;
-    if(user_id == ""){
-      alert("아이디를 입력해주세요");
-      return;
-    }
-    if(confirm("정말로 삭제하시겠습니까?")){
-      document.forms[0].submit();
-    }
-  }
-</script>
 
 </body>
 </html>

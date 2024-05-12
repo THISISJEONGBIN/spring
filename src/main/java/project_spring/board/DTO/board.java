@@ -10,4 +10,5 @@ public class board {
     String board_title;
     String board_content;
     String created_at;
+    String code_content;
 }

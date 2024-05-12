@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>Top navbar example · Bootstrap v5.3</title>
+    <title>게시물 작성</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/navbar-static/">
 
@@ -168,7 +168,7 @@
                     <a class="nav-link" href="/mypage">My Page</a>
                 </li>
             </ul>
-            <button class="btn btn-light" onclick="location.href='/logout'">logout</button>
+            <button class="btn btn-light" onclick="location.href='/'">logout</button>
         </div>
     </div>
 </nav>
@@ -183,9 +183,10 @@
             <br>
             <h2>내용</h2>
             <textarea name="insert_board" id="insert_board" cols="120" rows="10" placeholder="내용을 입력해주세요."></textarea>
-            <!-- <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">야옹 &raquo;</a> -->
+            <h2>코드 내용</h2>
+            <textarea name="code_content" id="code_content" cols="120" rows="10" placeholder="코드를 적어주세요. 없으면 안 적으셔도 됩니다."></textarea>
             <div class="text-end">
-                <input type="submit" class="btn btn-primary" value="안녕하세요" onclick="button()">
+                <input type="submit" class="btn btn-primary" value="게시물 작성" onclick="button()">
             </div>
         </div>
         </div>

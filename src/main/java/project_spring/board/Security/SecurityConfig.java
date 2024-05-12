@@ -16,18 +16,23 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.filter.RequestContextFilter;
 import project_spring.board.DTO.DTO;
 import project_spring.board.DTO.DTObuilder;
 import project_spring.board.repository.mapper;
 
+import java.nio.file.attribute.UserPrincipal;
+import java.security.Principal;
 import java.util.Iterator;
 import java.util.List;
 
 
 @EnableWebSecurity
 @Configuration
+@Controller
 public class SecurityConfig {
 @Autowired
 private mapper map;
@@ -37,13 +42,14 @@ private mapper map;
     @Bean
     public SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth ->
-                auth.requestMatchers("/singup","/").permitAll().requestMatchers("/admin").hasRole("ADMIN").anyRequest().authenticated()
+                auth.requestMatchers("/singup","/","/assets/**","/comp").permitAll().requestMatchers("/admin","/admin/**").hasRole("ADMIN").anyRequest().authenticated()
 
         );
 
         http.addFilterBefore(requestContextFilter, UsernamePasswordAuthenticationFilter.class);
         http.formLogin(login ->
-                login.loginPage("/userlogin").successForwardUrl("/board").failureForwardUrl("/userlogin?error").permitAll());
+                login.loginPage("/userlogin").successForwardUrl("/board").failureUrl("/userlogin?error").permitAll()
+                        );
 
         http.logout(logout ->
                 logout.logoutUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll().logoutSuccessUrl("/userlogin").invalidateHttpSession(true)
@@ -58,7 +64,6 @@ private mapper map;
 
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         Iterator<DTO> it = map.Select_User().iterator();
-        SecurityContextHolder.clearContext();
 
         while(it.hasNext()) {
             DTO user = it.next();
@@ -76,7 +81,6 @@ private mapper map;
                         .roles("ADMIN")
                         .build()
         );
-        SecurityContextHolder.clearContext();
 
         return manager;
     }
@@ -85,5 +89,25 @@ private mapper map;
     public PasswordEncoder passwordEncoder() {
 
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+
+    @RequestMapping("/comp")
+    public String singupComp() {
+        System.out.println("인증중");
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        Iterator<DTO> it = map.Select_User().iterator();
+
+        while(it.hasNext()) {
+            DTO user = it.next();
+            manager.createUser(
+                    User.withUsername(user.getId())
+                            .password(passwordEncoder().encode(user.getPw()))
+                            .roles("USER").build()
+            );
+
+        }
+        System.out.println("인증 완료");
+        return "user/login.html";
     }
 }

@@ -3,15 +3,15 @@ package project_spring.board.DTO;
 
 public class DTO {
 
-    private String user_id, user_pw, user_name;
-    private int user_resident_1, user_resident_2;
+    private String user_id, user_pw, user_name, user_code;
+    private int user_resident_1;
 
-    public DTO(String id, String pw, String name, int resident_1, int resident_2) {
+    public DTO(String id, String pw, String name, int resident_1, String code) {
         this.user_id = id;
         this.user_pw = pw;
         this.user_name = name;
         this.user_resident_1 = resident_1;
-        this.user_resident_2 = resident_2;
+        this.user_code = code;
     }
     public String getId() {
         return user_id;
@@ -25,9 +25,7 @@ public class DTO {
     public int getResident_1() {
         return user_resident_1;
     }
-    public int getResident_2() {
-        return user_resident_2;
-    }
+    public String getCode() {return user_code;}
 
 
 }

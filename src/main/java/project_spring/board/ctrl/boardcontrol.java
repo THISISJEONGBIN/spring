@@ -29,7 +29,7 @@ public class boardcontrol {
     }
 
     @PostMapping("/insert")
-    public String insert(@RequestParam String insert_title, @RequestParam String insert_board, Model mo) {
+    public String insert(@RequestParam String insert_title, @RequestParam String insert_board,@RequestParam String code_content ,Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String)authentication.getName();
 
@@ -37,16 +37,16 @@ public class boardcontrol {
 
         System.out.println(insert_title);
         System.out.println(insert_board);
-        map.insert_board(username, insert_title, insert_board);
+        map.insert_board(username, insert_title, insert_board, code_content);
 
         return "board/board_insert.html";
     }
 
     @PostMapping("/select")
-    public String Post_select( @RequestParam String insert_title, @RequestParam String insert_board,Model mo) {
+    public String Post_select( @RequestParam String insert_title, @RequestParam String insert_board,@RequestParam String code_content,Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String)authentication.getName();
-        map.insert_board(username, insert_title, insert_board);
+       map.insert_board(username, insert_title, insert_board,code_content);
 
         List<board> li = map.select_board();
         mo.addAttribute("board", li);
@@ -97,4 +97,16 @@ public class boardcontrol {
         return "redirect:/board/{board_id}";
     }
 
+    @GetMapping("/update/{board_id}/{comment_id}")
+    public String update_comment(@PathVariable String board_id,@PathVariable String comment_id, Model mo, @RequestParam String comment_content) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String)authentication.getName();
+
+        map.update_comment(username,comment_id,username);
+
+        System.out.println("ㅎㅇ");
+
+        return "/board/board_comment_update.html";
+    }
 }

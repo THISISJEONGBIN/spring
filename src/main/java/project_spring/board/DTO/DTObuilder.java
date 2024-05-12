@@ -1,8 +1,8 @@
 package project_spring.board.DTO;
 
 public class DTObuilder {
-    private String id, pw, name;
-    private int resident_1, resident_2;
+    private String id, pw, name, code;
+    private int resident_1;
 
     public DTObuilder id(String id) {
         this.id = id;
@@ -20,11 +20,11 @@ public class DTObuilder {
         this.resident_1 = resident_1;
         return this;
     }
-    public DTObuilder resident_2(int resident_2) {
-        this.resident_2 = resident_2;
+    public DTObuilder code(String code) {
+        this.code = code;
         return this;
     }
     public DTO build() {
-        return new DTO(id, pw, name, resident_1, resident_2 );
+        return new DTO(id, pw, name, resident_1, code );
     }
 }

@@ -28,8 +28,7 @@ public class Control {
 
     @GetMapping("/")
     public String index() {
-
-        return "redirect:/userlogin";
+        return "index.html";
     }
 
     @GetMapping("/admin")
@@ -37,6 +36,15 @@ public class Control {
 
         return "admin/admin_index.html";
     }
+
+    @GetMapping("/admin/seluser")
+    public String userdel(Model mo) {
+
+        List<DTO> li =  map.Select_User();
+        mo.addAttribute("user", li);
+        return "admin/admin_select_user.html";
+    }
+
 
     @GetMapping("/singup")
     public String singup() {
@@ -46,11 +54,13 @@ public class Control {
 
     @PostMapping("/singup")
     public String singup2(@RequestParam String user_id, @RequestParam String user_pw, @RequestParam String user_name
-            , @RequestParam String user_regident1, @RequestParam String user_regident2) {
-        DTO a = new DTObuilder().id(user_id).pw(user_pw).name(user_name).resident_1(Integer.parseInt(user_regident1)).resident_2(Integer.parseInt(user_regident2)).build();
-        map.User_insert(a.getId(), a.getPw(), a.getName(), Integer.toString(a.getResident_1()), Integer.toString(a.getResident_2()));
+            , @RequestParam String user_regident1, @RequestParam String user_code)
+    {
+        //build 패턴을 이용한 유저 회원가입
+        DTO a = new DTObuilder().id(user_id).pw(user_pw).name(user_name).resident_1(Integer.parseInt(user_regident1)).code(user_code).build();
+        map.User_insert(a.getId(), a.getPw(), a.getName(), Integer.toString(a.getResident_1()), a.getCode());
 
-        return "user/login.html";
+        return "user/comp.html";
     }
 
 
@@ -65,14 +75,13 @@ public class Control {
         return "user/login.html";
     }
 
+
     @GetMapping("/board")
     public String board(Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String)authentication.getName();
 
-        System.out.println("야생의 " + username + "이 나타났다!");
         mo.addAttribute("username", username);
-
 
         return "board/board.html";
     }
@@ -90,17 +99,15 @@ public class Control {
             if (dto.getId().equals(id) && dto.getPw().equals(pw)) {
                 mo.addAttribute("user", dto);
                 Cookie coo = new Cookie("username", String.valueOf(dto.getId()));
-//                coo.setMaxAge(-1);
+                coo.setMaxAge(3600);
                 coo.setPath("/");
-                System.out.println("야생의 " +dto.getId() + "이 나타났다 !");
+                System.out.println("야생의 " +dto.getId() + "이 나타났다!");
                 res.addCookie(coo);
-                HttpSession session = req.getSession();
-                session.setAttribute("user", dto);
             }
         }
-
         return "board/board.html";
     }
+
     @GetMapping("/mypage")
     public String mypage(Model mo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
